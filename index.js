@@ -25,16 +25,16 @@ const createEmployeeRecords = arr => {
     return arr.map(sub => createEmployeeRecord(sub))
 }
 
-createTimeInEvent = date => {
+const createTimeInEvent = function(date) {
     this.timeInEvents.push({
-        type: 'TimeIn',
+        type: "TimeIn",
         hour: parseInt(date.split(' ')[1]),
         date: date.split(' ')[0]
     })
     return this
 }
 
-createTimeOutEvent = date => {
+const createTimeOutEvent = function(date) {
     this.timeOutEvents.push({
         type: 'TimeOut',
         hour: parseInt(date.split(' ')[1]),
@@ -43,17 +43,17 @@ createTimeOutEvent = date => {
     return this
 }
 
-const hoursWorkedOnDate = date => {
+const hoursWorkedOnDate = function(date) {
     let timeIn = this.timeInEvents.find(d => d.date === date)
     let timeOut = this.timeOutEvents.find(d => d.date === date)
     return (timeOut.hour - timeIn.hour) / 100;
 }
 
-const wagesEarnedOnDate = date => {
+const wagesEarnedOnDate = function(date) {
     return hoursWorkedOnDate.call(this, date) * this.payPerHour;
 }
 
-let allWagesFor = function () {
+let allWagesFor = function() {
     let eligibleDates = this.timeInEvents.map(function (e) {
         return e.date
     })
@@ -69,8 +69,8 @@ const findEmployeeByFirstName = (arr, name) => {
     return arr.find(obj => obj.firstName === name);
 }
 
-const calculatePayroll = arr => {
-    arr.reduce((s, v) => {
-        return s + allWagesFor(v)
+const calculatePayroll = function(arr) {
+    return arr.reduce((s, v) => {
+        return s + allWagesFor.call(v)
     }, 0)
 }
